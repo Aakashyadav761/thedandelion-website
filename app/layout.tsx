@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+import { Cormorant_Garamond, Mulish } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+const cormorant = Cormorant_Garamond({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const mulish = Mulish({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-mulish",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "The Dandelion – Colonels' Jungle Resort | Western Ghats, Karnataka",
+    template: "%s | The Dandelion – Colonels' Jungle Resort",
+  },
+  description:
+    "A jungle resort on the fringes of Dandeli forest in the Western Ghats. Cottages, huts, pool, guided nature walks, and wildlife — near Ramnagar, Belgavi, Karnataka.",
+  metadataBase: new URL("https://thedandelion.in"),
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${mulish.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col font-body text-brown-body bg-cream">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}

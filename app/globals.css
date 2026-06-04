@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-sage: #7C8A5E;
+  --color-sage-dark: #5a6644;
+  --color-earthen: #B79A6A;
+  --color-cream: #EDE4D3;
+  --color-gold: #C9A227;
+  --color-gold-dark: #8A6D12;
+  --color-brown-dark: #412402;
+  --color-brown-body: #6E5B3A;
+  --color-forest: #2A3520;
+
+  /* Fonts — resolved against CSS variables set by next/font */
+  --font-heading: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-mulish), Mulish, "Helvetica Neue", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #6E5B3A;
+  background-color: #EDE4D3;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
