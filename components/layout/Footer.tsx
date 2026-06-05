@@ -38,12 +38,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
-          <div>
+          {/* Quick links — centred on desktop */}
+          <div className="md:text-center">
             <h3 className="text-sm font-medium tracking-widest uppercase text-earthen mb-4">
               Explore
             </h3>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col md:items-center gap-2">
               {quickLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link

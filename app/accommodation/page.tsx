@@ -112,13 +112,13 @@ export default function AccommodationPage() {
       {/* ─── Cottage ─── */}
       <UnitSection unit={units[0]} />
 
-      {/* ─── Forest ornamental band — creates rhythm between unit types ─── */}
-      <div className="bg-forest py-10">
+      {/* ─── Divider between unit types — cream, no colour block ─── */}
+      <div className="bg-cream py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-6">
-            <span className="h-px flex-1 bg-earthen/25" />
-            <span className="font-heading text-3xl text-earthen/60 leading-none">✦</span>
-            <span className="h-px flex-1 bg-earthen/25" />
+          <div className="flex items-center gap-4">
+            <span className="h-px flex-1 bg-earthen/30" />
+            <span className="text-earthen leading-none">✦</span>
+            <span className="h-px flex-1 bg-earthen/30" />
           </div>
         </div>
       </div>
