@@ -26,10 +26,10 @@ export default function UnitSection({ unit }: { unit: UnitData }) {
   return (
     <section className="py-10 md:py-14 bg-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
 
-          {/* Photo / gallery column */}
-          <div className={flipped ? "lg:order-2" : ""}>
+          {/* Photo / gallery column — h-full so gallery can fill to match right column */}
+          <div className={`h-full flex flex-col ${flipped ? "lg:order-2" : ""}`}>
             <UnitGallery images={unit.images} />
           </div>
 

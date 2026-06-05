@@ -40,9 +40,9 @@ export default function UnitGallery({ images }: { images: GalleryPhoto[] }) {
   const visibleThumbs = images.slice(thumbStart, thumbStart + VISIBLE);
 
   return (
-    <div>
-      {/* Main image */}
-      <div className="relative h-[340px] md:h-[400px] rounded-xl overflow-hidden">
+    <div className="flex flex-col h-full">
+      {/* Main image — flex-1 so it fills whatever height the right column sets */}
+      <div className="relative flex-1 min-h-[240px] rounded-xl overflow-hidden">
         <Image
           key={images[activeIdx].src}
           src={images[activeIdx].src}
@@ -54,9 +54,9 @@ export default function UnitGallery({ images }: { images: GalleryPhoto[] }) {
         />
       </div>
 
-      {/* Thumbnail carousel */}
+      {/* Thumbnail carousel — flex-shrink-0 keeps it at natural height */}
       <div
-        className="mt-2 flex items-center gap-2"
+        className="mt-2 flex-shrink-0 flex items-center gap-2"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
