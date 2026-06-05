@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import UnitSection from "@/components/accommodation/UnitSection";
+import UnitSection, { type UnitData } from "@/components/accommodation/UnitSection";
 
 export const metadata: Metadata = {
   title: "Accommodation",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 // Static data typed to match the Sanity Room schema.
 // Replace with a sanity.fetch() GROQ query once the Sanity project is connected.
-const units = [
+const units: UnitData[] = [
   {
     id: "cottages",
     unitType: "Cottages",
@@ -22,14 +22,16 @@ const units = [
     rateIncludes: "room + breakfast",
     maxAdults: 2,
     extraPersonCharge: 1000,
-    heroImage: "/images/cottage/IMG-20240418-WA0001.jpg",
-    heroAlt: "Cottage nestled among trees at The Dandelion Resort",
-    galleryImages: [
-      { src: "/images/cottage/IMG-20240418-WA0002.jpg", alt: "Cottage exterior, The Dandelion" },
-      { src: "/images/cottage/IMG-20240418-WA0003.jpg", alt: "Cottage verandah view" },
-      { src: "/images/cottage/IMG_3466.jpg", alt: "Cottage garden path" },
+    images: [
+      { src: "/images/cottage/IMG-20240418-WA0001.jpg", alt: "Cottage nestled among trees at The Dandelion" },
+      { src: "/images/cottage/IMG-20240418-WA0002.jpg", alt: "Cottage exterior view" },
+      { src: "/images/cottage/IMG-20240418-WA0003.jpg", alt: "Cottage verandah" },
+      { src: "/images/cottage/IMG_3466.jpg",             alt: "Cottage garden path" },
+      { src: "/images/cottage/IMG_3469.jpg",             alt: "Cottage room interior" },
+      { src: "/images/cottage/IMG_3471.jpg",             alt: "Cottage interior and washroom" },
+      { src: "/images/cottage/IMG-20240418-WA0011.jpg",  alt: "Cottage washroom" },
     ],
-    imageLayout: "left" as const,
+    imageLayout: "left",
     whatsappMessage:
       "Hi, I'd like to enquire about a Cottage at The Dandelion – Colonels' Jungle Resort.",
   },
@@ -44,14 +46,16 @@ const units = [
     rateIncludes: "room + breakfast",
     maxAdults: 2,
     extraPersonCharge: null,
-    heroImage: "/images/hut/IMG-20240418-WA0004.jpg",
-    heroAlt: "Hut accommodation at The Dandelion Resort",
-    galleryImages: [
-      { src: "/images/hut/IMG-20240418-WA0005.jpg", alt: "Hut exterior at The Dandelion" },
-      { src: "/images/hut/IMG-20240418-WA0006.jpg", alt: "Hut interior view" },
-      { src: "/images/hut/20221214_114245.jpg", alt: "Hut surrounded by forest" },
+    images: [
+      { src: "/images/hut/IMG-20240418-WA0004.jpg",                                         alt: "Hut at The Dandelion Resort" },
+      { src: "/images/hut/IMG-20240418-WA0005.jpg",                                         alt: "Hut exterior" },
+      { src: "/images/hut/IMG-20240418-WA0006.jpg",                                         alt: "Hut entrance and verandah" },
+      { src: "/images/hut/20221214_114245.jpg",                                              alt: "Hut surrounded by forest" },
+      { src: "/images/hut/20221214_114914.jpg",                                              alt: "Hut interior" },
+      { src: "/images/hut/WhatsApp%20Image%202023-01-15%20at%204.52.00%20PM.jpeg",          alt: "Hut room" },
+      { src: "/images/hut/WhatsApp%20Image%202023-02-15%20at%207.21.49%20PM.jpeg",          alt: "Hut washroom" },
     ],
-    imageLayout: "right" as const,
+    imageLayout: "right",
     whatsappMessage:
       "Hi, I'd like to enquire about a Hut at The Dandelion – Colonels' Jungle Resort.",
   },
