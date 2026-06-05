@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title:
     "The Dandelion – Colonels' Jungle Resort | Your Quiet Corner of the Western Ghats",
   description:
-    "Arrive as guests, leave as family. A jungle retreat on the fringes of Dandeli forest — cottages, huts, guided walks, wildlife, and warm hospitality near Ramnagar, Karnataka.",
+    "A jungle retreat on the fringes of Dandeli forest — cottages, huts, guided walks, wildlife, and warm hospitality near Ramnagar, Karnataka.",
 };
 
 export default function HomePage() {
