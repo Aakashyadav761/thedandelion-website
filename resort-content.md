@@ -77,10 +77,10 @@ Notable North Karnataka heritage sites guests can visit on a longer day trip (dr
 **Images:** For the Around Us / heritage attractions only, photos may be sourced from the internet (use royalty-free / properly licensed images, e.g. Unsplash, Wikimedia Commons). For everything else (rooms, property, activities), use the resort's own photos from `Pictures/`.
 
 ## Home Hero Tagline (FINAL)
-**"Your quiet corner of the Western Ghats."** — use this as the hero tagline, paired with the philosophy line "Arrive as guests, leave as family." where a secondary line fits.
+**"Your quiet corner of the Western Ghats."** — use this as the hero tagline. No secondary tagline line.
 
 ## Philosophy / About (for Contact Us "about" + Home intro)
-At The Dandelion, our philosophy is simple — **you arrive as guests and leave as family.** Tucked on the fringe of Dandeli's forest in the Western Ghats, we offer a natural, unmanicured wilderness where personal warmth matters as much as the birdsong. From guided jungle walks to slow evenings around the barbeque, everything is looked after personally, so that what begins as a stay becomes a bond you carry home.
+At The Dandelion, we believe the best stays are the ones that feel personal. Tucked on the fringe of Dandeli's forest in the Western Ghats, we offer a natural, unmanicured wilderness where genuine warmth matters as much as the birdsong. From guided jungle walks to slow evenings around the barbeque, everything is looked after personally — so that what begins as a visit becomes a memory you carry home.
 
 ## Property Write-up (for Home hero / About)
 The Dandelion – Colonels' Jungle Resort is a highly rated jungle resort offering a natural, non-manicured ambience with a richly developed ecosystem. Personalized service and attention to detail ensure an unmatched wilderness experience. Set on the fringe (northern edge) of Dandeli forest near Ramnagar, its lush green environs showcase an abundance of flora and fauna, especially birds. Aloof from civilization, a seasonal river nearby hosts grazing deer, root-digging wild hog, and migrating elephant herds, along with sightings of hornbills.

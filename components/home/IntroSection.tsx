@@ -14,9 +14,9 @@ export default function IntroSection() {
         </h2>
 
         <p className="font-body text-base md:text-lg text-brown-body leading-relaxed mb-6">
-          At The Dandelion, our philosophy is simple — you arrive as guests and leave as family.
+          At The Dandelion, we believe the best stays are the ones that feel personal.
           Tucked on the fringe of Dandeli&apos;s forest in the Western Ghats, we offer a natural,
-          unmanicured wilderness where personal warmth matters as much as the birdsong.
+          unmanicured wilderness where genuine warmth matters as much as the birdsong.
         </p>
 
         <p className="font-body text-base md:text-lg text-brown-body/80 leading-relaxed mb-10">

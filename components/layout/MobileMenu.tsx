@@ -16,7 +16,7 @@ export default function MobileMenu({ navLinks }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       {/* Hamburger button */}
       <button
         onClick={() => setOpen(!open)}

@@ -16,8 +16,8 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-forest/90 backdrop-blur-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex-shrink-0">
+        {/* Logo + name lockup */}
+        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
           <Image
             src="/images/logo/logo.png"
             alt="The Dandelion – Colonels' Jungle Resort"
@@ -26,10 +26,18 @@ export default function Header() {
             className="object-contain"
             priority
           />
+          <div className="flex flex-col justify-center">
+            <span className="font-heading text-lg sm:text-xl text-cream font-medium leading-tight tracking-wide">
+              The Dandelion
+            </span>
+            <span className="font-body text-[8px] sm:text-[10px] uppercase tracking-[0.13em] sm:tracking-[0.16em] text-cream/55 font-medium leading-tight mt-0.5">
+              Colonels&apos; Jungle Resort
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -41,7 +49,7 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Mobile menu trigger */}
+        {/* Mobile / tablet menu trigger */}
         <MobileMenu navLinks={navLinks} />
       </div>
     </header>

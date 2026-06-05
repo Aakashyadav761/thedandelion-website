@@ -1,6 +1,6 @@
 import { readdirSync } from "fs";
 import { join } from "path";
-import Image from "next/image";
+import ReviewsCarousel from "./ReviewsCarousel";
 
 export default function ReviewsSection() {
   let reviewFiles: string[] = [];
@@ -34,24 +34,7 @@ export default function ReviewsSection() {
           </p>
         </div>
 
-        {/* Reviews grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {reviewFiles.map((filename, i) => (
-            <div
-              key={filename}
-              className="break-inside-avoid rounded-xl overflow-hidden shadow-sm border border-earthen/20 bg-white"
-            >
-              <Image
-                src={`/images/reviews/${encodeURIComponent(filename)}`}
-                alt={`Guest review ${i + 1} of The Dandelion – Colonels' Jungle Resort`}
-                width={0}
-                height={0}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="w-full h-auto"
-              />
-            </div>
-          ))}
-        </div>
+        <ReviewsCarousel files={reviewFiles} />
       </div>
     </section>
   );

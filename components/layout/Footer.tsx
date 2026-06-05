@@ -36,9 +36,6 @@ export default function Footer() {
                 Dist. Belgavi, Karnataka
               </p>
             </div>
-            <p className="text-sm italic text-cream/50">
-              &ldquo;Arrive as guests, leave as family.&rdquo;
-            </p>
           </div>
 
           {/* Quick links */}
@@ -87,11 +84,15 @@ export default function Footer() {
                 7 km from Ramnagar
               </li>
             </ul>
+            <p className="mt-5 text-sm text-cream/70">
+              <span className="text-gold font-semibold">4.7 ★</span>
+              <span className="ml-1">on Google</span>
+            </p>
             <a
               href="https://wa.me/917764006404?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20stay%20at%20The%20Dandelion."
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block bg-gold text-brown-dark text-sm font-semibold px-5 py-2.5 rounded hover:bg-gold/90 transition-colors"
+              className="mt-3 inline-block bg-gold text-brown-dark text-sm font-semibold px-5 py-2.5 rounded hover:bg-gold/90 transition-colors"
             >
               Enquire on WhatsApp
             </a>

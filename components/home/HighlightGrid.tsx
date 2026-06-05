@@ -65,12 +65,12 @@ export default function HighlightGrid() {
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
 
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              {/* Gradient overlay — strong enough to read labels on any photo */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-cream">
-                <p className="font-body text-xs tracking-widest uppercase text-gold/90 mb-1">
+                <p className="font-body text-xs tracking-widest uppercase text-gold font-semibold mb-1">
                   {item.subtitle}
                 </p>
                 <h3 className="font-heading text-2xl md:text-3xl font-medium mb-2">

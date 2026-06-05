@@ -36,13 +36,8 @@ export default function Hero() {
           Your quiet corner of<br className="hidden sm:block" /> the Western Ghats.
         </h1>
 
-        {/* Secondary line */}
-        <p className="mt-4 font-body text-base sm:text-lg text-cream/80 tracking-widest uppercase font-light">
-          Arrive as guests &mdash; leave as family
-        </p>
-
         {/* CTA */}
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center">
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center">
           <Link
             href="/accommodation"
             className="bg-gold text-brown-dark font-body font-semibold px-8 py-3.5 text-sm tracking-wide uppercase hover:bg-gold/90 transition-colors rounded"
