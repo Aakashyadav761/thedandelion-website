@@ -47,13 +47,13 @@ const units: UnitData[] = [
     maxAdults: 2,
     extraPersonCharge: null,
     images: [
-      { src: "/images/hut/IMG-20240418-WA0004.jpg",                                         alt: "Hut at The Dandelion Resort" },
-      { src: "/images/hut/IMG-20240418-WA0005.jpg",                                         alt: "Hut exterior" },
-      { src: "/images/hut/IMG-20240418-WA0006.jpg",                                         alt: "Hut entrance and verandah" },
-      { src: "/images/hut/20221214_114245.jpg",                                              alt: "Hut surrounded by forest" },
-      { src: "/images/hut/20221214_114914.jpg",                                              alt: "Hut interior" },
-      { src: "/images/hut/WhatsApp%20Image%202023-01-15%20at%204.52.00%20PM.jpeg",          alt: "Hut room" },
-      { src: "/images/hut/WhatsApp%20Image%202023-02-15%20at%207.21.49%20PM.jpeg",          alt: "Hut washroom" },
+      { src: "/images/hut/IMG-20240418-WA0004.jpg",                                alt: "Hut at The Dandelion Resort" },
+      { src: "/images/hut/IMG-20240418-WA0005.jpg",                                alt: "Hut exterior" },
+      { src: "/images/hut/IMG-20240418-WA0006.jpg",                                alt: "Hut entrance and verandah" },
+      { src: "/images/hut/20221214_114245.jpg",                                     alt: "Hut surrounded by forest" },
+      { src: "/images/hut/20221214_114914.jpg",                                     alt: "Hut interior" },
+      { src: "/images/hut/WhatsApp%20Image%202023-01-15%20at%204.52.00%20PM.jpeg", alt: "Hut room" },
+      { src: "/images/hut/WhatsApp%20Image%202023-02-15%20at%207.21.49%20PM.jpeg", alt: "Hut washroom" },
     ],
     imageLayout: "right",
     whatsappMessage:
@@ -64,7 +64,7 @@ const units: UnitData[] = [
 export default function AccommodationPage() {
   return (
     <>
-      {/* Page hero */}
+      {/* ─── Page hero ─── */}
       <section className="relative h-[55vh] min-h-[380px] flex items-end overflow-hidden">
         <Image
           src="/images/cottage/IMG-20240417-WA0019.jpg"
@@ -75,7 +75,8 @@ export default function AccommodationPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-        <div className="relative z-10 px-6 sm:px-12 lg:px-20 pb-14 md:pb-20 w-full max-w-7xl mx-auto">
+        {/* Use the same px/max-w as all other sections so left edge aligns */}
+        <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-12 md:pb-16 w-full max-w-7xl mx-auto">
           <p className="font-body text-[10px] tracking-[0.22em] uppercase text-earthen mb-3">
             Stay with us
           </p>
@@ -88,35 +89,55 @@ export default function AccommodationPage() {
         </div>
       </section>
 
-      {/* Intro strip */}
-      <div className="bg-forest py-5 px-4 text-center">
-        <p className="font-body text-sm text-cream/70 max-w-2xl mx-auto leading-relaxed">
-          Two character-filled stays on 11 acres of forested land — each built to let you slow down
-          and settle in. All rates include breakfast and are flat per-night.
-        </p>
-      </div>
-
-      {/* Unit sections — alternating layout */}
-      {units.map((unit, i) => (
-        <div key={unit.id} className={i % 2 === 1 ? "bg-cream/60" : ""}>
-          <UnitSection unit={unit} />
+      {/* ─── Page intro — cream with decorative rules (matches Home IntroSection style) ─── */}
+      <section className="bg-cream py-12 md:py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="h-px w-12 bg-earthen/50" />
+            <span className="text-earthen text-xl leading-none">✦</span>
+            <span className="h-px w-12 bg-earthen/50" />
+          </div>
+          <p className="font-body text-base md:text-lg text-brown-body leading-relaxed">
+            Two character-filled stays on 11 acres of forested land — each built to let you
+            slow down and settle in. All rates are flat per-night and include breakfast.
+          </p>
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <span className="h-px w-12 bg-earthen/50" />
+            <span className="text-earthen text-xl leading-none">✦</span>
+            <span className="h-px w-12 bg-earthen/50" />
+          </div>
         </div>
-      ))}
+      </section>
 
-      {/* Separator */}
-      <div className="flex items-center justify-center gap-6 py-6 bg-cream">
-        <span className="h-px w-24 bg-earthen/30" />
-        <span className="text-earthen text-xl leading-none">✦</span>
-        <span className="h-px w-24 bg-earthen/30" />
+      {/* ─── Cottage ─── */}
+      <UnitSection unit={units[0]} />
+
+      {/* ─── Forest ornamental band — creates rhythm between unit types ─── */}
+      <div className="bg-forest py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-6">
+            <span className="h-px flex-1 bg-earthen/25" />
+            <span className="font-heading text-3xl text-earthen/60 leading-none">✦</span>
+            <span className="h-px flex-1 bg-earthen/25" />
+          </div>
+        </div>
       </div>
 
-      {/* Policy strip */}
-      <section className="bg-forest py-14 px-4">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-heading text-3xl text-cream font-medium mb-4">
+      {/* ─── Hut ─── */}
+      <UnitSection unit={units[1]} />
+
+      {/* ─── Before You Arrive — forest, flows directly into the footer ─── */}
+      <section className="bg-forest py-12 md:py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span className="h-px w-12 bg-earthen/25" />
+            <span className="text-earthen/60 text-xl leading-none">✦</span>
+            <span className="h-px w-12 bg-earthen/25" />
+          </div>
+          <h2 className="font-heading text-3xl text-cream font-medium mb-5">
             Before You Arrive
           </h2>
-          <p className="font-body text-sm text-cream/65 leading-relaxed mb-6">
+          <p className="font-body text-sm text-cream/65 leading-relaxed mb-4">
             All rates are per night and inclusive of GST. The room rate includes breakfast for all
             in-room occupants. Additional charges apply for the Jacuzzi pool, à&nbsp;la&nbsp;carte
             dining at Dandelion Kitchen, guided walks, barbeque evenings, and outdoor games — all

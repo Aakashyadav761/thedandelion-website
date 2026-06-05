@@ -24,7 +24,7 @@ export default function UnitSection({ unit }: { unit: UnitData }) {
   const flipped = unit.imageLayout === "right";
 
   return (
-    <section className="py-10 md:py-14 bg-cream">
+    <section className="py-12 md:py-16 bg-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
 
