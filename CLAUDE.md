@@ -20,7 +20,7 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
 | Galleries | ✅ Complete | — (see latest) |
 
 > **Stable baseline (Home + Accommodation):** commit `c0f685d` — signed off by owner.
-> **All v1 pages built.** Sanity not yet connected (placeholder credentials). Mobile verified across all 7 pages.
+> **V1 complete:** commit `9b38df5` — all 7 pages built and mobile-verified. Sanity not yet connected (placeholder credentials).
 
 ## Tech Stack
 - **Framework:** Next.js (App Router)
