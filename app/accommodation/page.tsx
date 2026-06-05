@@ -97,10 +97,8 @@ export default function AccommodationPage() {
       </div>
 
       {/* Unit sections — alternating layout */}
-      {units.map((unit, i) => (
-        <div key={unit.id} className={i % 2 === 1 ? "bg-cream/60" : ""}>
-          <UnitSection unit={unit} />
-        </div>
+      {units.map((unit) => (
+        <UnitSection key={unit.id} unit={unit} />
       ))}
 
       {/* Separator */}
