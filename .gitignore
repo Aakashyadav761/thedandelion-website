@@ -30,6 +30,7 @@ Thumbs.db
 # Playwright / dev screenshots (transient, not source)
 *.png
 *.jpg
+*.jpeg
 !public/**/*.png
 !public/**/*.jpg
 !public/**/*.jpeg
@@ -41,3 +42,6 @@ Thumbs.db
 
 # Playwright MCP snapshots (generated during dev, not source)
 .playwright-mcp/
+
+# Claude Code — per-user local settings (API keys, personal prefs)
+.claude/settings.local.json

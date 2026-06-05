@@ -7,6 +7,21 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
 
 > **Content source:** All real copy, unit details, facilities, guest guidelines, and directions live in `resort-content.md`. Read it before building or seeding Sanity.
 
+## Build Progress
+
+| Page | Status | Last stable commit |
+|------|--------|--------------------|
+| Home | ✅ Complete | `c0f685d` |
+| Accommodation | ✅ Complete | `c0f685d` |
+| Activities & Facilities | ✅ Complete | `fd8daa8` |
+| Around Us | ✅ Complete | `2231aad` |
+| Jobs | ✅ Complete | `31e3242` |
+| Contact Us | ✅ Complete | — (see latest) |
+| Galleries | ✅ Complete | — (see latest) |
+
+> **Stable baseline (Home + Accommodation):** commit `c0f685d` — signed off by owner.
+> **All v1 pages built.** Sanity not yet connected (placeholder credentials). Mobile verified across all 7 pages.
+
 ## Tech Stack
 - **Framework:** Next.js (App Router)
 - **Styling:** Tailwind CSS
