@@ -13,7 +13,7 @@ const quickLinks = [
 export default function Footer() {
   return (
     <footer className="bg-forest text-cream/80 font-body">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pt-12 pb-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
 
           {/* Brand column */}
@@ -57,12 +57,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
+          {/* Contact — right-aligned on desktop so content sits against the same right edge as the nav */}
+          <div className="md:text-right">
             <h3 className="text-sm font-medium tracking-widest uppercase text-earthen mb-4">
               Get in Touch
             </h3>
-            <ul className="flex flex-col gap-3 text-sm text-cream/70">
+            <ul className="flex flex-col md:items-end gap-3 text-sm text-cream/70">
               <li>
                 <a
                   href="https://wa.me/917764006404"
@@ -99,7 +99,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-sage/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/40">
+        <div className="mt-8 pt-3 pb-3 border-t border-sage/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cream/40">
           <p>
             &copy; {new Date().getFullYear()} The Dandelion – Colonels&apos; Jungle Resort. All rights reserved.
           </p>
