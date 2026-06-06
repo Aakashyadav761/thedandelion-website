@@ -5,6 +5,9 @@ export const siteContentSchema = {
   title: "Site Content",
   type: "document",
   __experimental_actions: ["update", "publish"],
+  preview: {
+    prepare: () => ({ title: "Site Settings" }),
+  },
   fields: [
     {
       name: "story",

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import UnitSection, { type UnitData } from "@/components/accommodation/UnitSection";
+import { sanityClient } from "@/lib/sanity";
+import type { Room } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Accommodation",
@@ -8,20 +10,19 @@ export const metadata: Metadata = {
     "Stay in a Cottage or Hut at The Dandelion – Colonels' Jungle Resort. Rustic comfort, warm hospitality, and forest views on the edge of Dandeli, Western Ghats.",
 };
 
-// Static data typed to match the Sanity Room schema.
-// Replace with a sanity.fetch() GROQ query once the Sanity project is connected.
-const units: UnitData[] = [
-  {
-    id: "cottages",
-    unitType: "Cottages",
-    count: 3,
-    heading: "Cottage",
-    description:
-      "The heart of the resort, our Cottages are made for those with a romantic connection to nature. Shaped by the season and the space around them, each offers complete privacy and comfort — an open layout with generous seating and plenty of room to spread out and unwind together.",
-    rate: 6600,
-    rateIncludes: "room + breakfast",
-    maxAdults: 2,
-    extraPersonCharge: 1000,
+async function getPublishedRooms(): Promise<Room[]> {
+  return sanityClient.fetch(
+    `*[_type == "room" && isPublished == true] | order(unitType asc) {
+      _id, _type, name, unitType, description, rate, rateIncludes,
+      maxAdults, extraPersonCharge, whatsappMessage, isPublished
+    }`
+  );
+}
+
+// Images stay hardcoded (Sanity images wired separately).
+const unitImages: Record<string, { images: UnitData["images"]; imageLayout: "left" | "right" }> = {
+  Cottages: {
+    imageLayout: "left",
     images: [
       { src: "/images/cottage/IMG-20240418-WA0001.jpg", alt: "Cottage nestled among trees at The Dandelion" },
       { src: "/images/cottage/IMG-20240418-WA0002.jpg", alt: "Cottage exterior view" },
@@ -31,21 +32,9 @@ const units: UnitData[] = [
       { src: "/images/cottage/IMG_3471.jpg",             alt: "Cottage interior and washroom" },
       { src: "/images/cottage/IMG-20240418-WA0011.jpg",  alt: "Cottage washroom" },
     ],
-    imageLayout: "left",
-    whatsappMessage:
-      "Hi, I'd like to enquire about a Cottage at The Dandelion – Colonels' Jungle Resort.",
   },
-  {
-    id: "huts",
-    unitType: "Huts",
-    count: 5,
-    heading: "Hut",
-    description:
-      "Our Huts are the easygoing choice — relaxed, affordable, and full of character. Thoughtfully crafted to blend rustic charm with modern comfort, each carries a warm, homely calm that makes it easy to slow right down and stay a while.",
-    rate: 4500,
-    rateIncludes: "room + breakfast",
-    maxAdults: 2,
-    extraPersonCharge: null,
+  Huts: {
+    imageLayout: "right",
     images: [
       { src: "/images/hut/IMG-20240418-WA0004.jpg",                                alt: "Hut at The Dandelion Resort" },
       { src: "/images/hut/IMG-20240418-WA0005.jpg",                                alt: "Hut exterior" },
@@ -55,13 +44,43 @@ const units: UnitData[] = [
       { src: "/images/hut/WhatsApp%20Image%202023-01-15%20at%204.52.00%20PM.jpeg", alt: "Hut room" },
       { src: "/images/hut/WhatsApp%20Image%202023-02-15%20at%207.21.49%20PM.jpeg", alt: "Hut washroom" },
     ],
-    imageLayout: "right",
-    whatsappMessage:
-      "Hi, I'd like to enquire about a Hut at The Dandelion – Colonels' Jungle Resort.",
   },
-];
+};
 
-export default function AccommodationPage() {
+function buildUnitData(rooms: Room[]): UnitData[] {
+  // Group rooms by unitType, take the first room's text fields as representative
+  const byType = new Map<string, Room[]>();
+  for (const room of rooms) {
+    const arr = byType.get(room.unitType) ?? [];
+    arr.push(room);
+    byType.set(room.unitType, arr);
+  }
+
+  return Array.from(byType.entries()).map(([unitType, group], i) => {
+    const rep = group[0];
+    const imgs = unitImages[unitType] ?? { imageLayout: "left" as const, images: [] };
+    return {
+      id: unitType.toLowerCase(),
+      unitType,
+      count: group.length,
+      heading: unitType.replace(/s$/, ""), // "Cottages" → "Cottage"
+      description: rep.description ?? "",
+      rate: rep.rate ?? null,
+      rateIncludes: rep.rateIncludes ?? "room + breakfast",
+      maxAdults: rep.maxAdults,
+      extraPersonCharge: rep.extraPersonCharge ?? null,
+      images: imgs.images,
+      imageLayout: imgs.imageLayout,
+      whatsappMessage:
+        rep.whatsappMessage ??
+        `Hi, I'd like to enquire about a ${unitType.replace(/s$/, "")} at The Dandelion – Colonels' Jungle Resort.`,
+    };
+  });
+}
+
+export default async function AccommodationPage() {
+  const rooms = await getPublishedRooms();
+  const units = buildUnitData(rooms);
   return (
     <>
       {/* ─── Page hero ─── */}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import ApplicationForm from "@/components/jobs/ApplicationForm";
+import { sanityClient } from "@/lib/sanity";
+import type { Job } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -8,54 +10,43 @@ export const metadata: Metadata = {
     "Join the team at The Dandelion – Colonels' Jungle Resort. Open roles include Manager, Chef, Housekeeping, Restaurant Staff, and more.",
 };
 
-// Static data typed to the Sanity Job schema.
-// Replace with sanity.fetch() once the Sanity project is connected.
-const openRoles = [
-  {
-    id: "manager",
-    title: "Manager",
-    type: "Full-time",
-    description: "Oversee day-to-day resort operations, coordinate between departments, and ensure every guest has an exceptional stay.",
-  },
-  {
-    id: "asst-manager",
-    title: "Assistant Manager",
-    type: "Full-time",
-    description: "Support the Manager across operations, handle guest relations, and step in to lead when needed.",
-  },
-  {
-    id: "chef",
-    title: "Chef",
-    type: "Full-time",
-    description: "Lead the Dandelion Kitchen — prepare fresh, quality meals with an eye for detail and a feel for the resort's warm, unhurried atmosphere.",
-  },
-  {
-    id: "housekeeping",
-    title: "Housekeeping",
-    type: "Full-time",
-    description: "Maintain the cottages, huts, and resort grounds to the highest standard — a key part of the guest experience.",
-  },
-  {
-    id: "restaurant",
-    title: "Restaurant Staff",
-    type: "Full-time",
-    description: "Serve guests at Dandelion Kitchen and assist with barbeque evenings — warm, attentive hospitality is the brief.",
-  },
-  {
-    id: "maintenance",
-    title: "Maintenance Staff",
-    type: "Full-time",
-    description: "Keep the resort in excellent condition — grounds, buildings, and facilities — so guests always arrive to a well-cared-for property.",
-  },
+const ROLE_ORDER = [
+  "Manager",
+  "Assistant Manager",
+  "Chef",
+  "Housekeeping",
+  "Restaurant Staff",
+  "Maintenance Staff",
 ];
+
+async function getOpenRoles(): Promise<Job[]> {
+  const jobs: Job[] = await sanityClient.fetch(
+    `*[_type == "job" && isOpen == true] {
+      _id, _type, title, type, description, location, isOpen
+    }`
+  );
+  return jobs.sort((a, b) => {
+    const ai = ROLE_ORDER.indexOf(a.title);
+    const bi = ROLE_ORDER.indexOf(b.title);
+    if (ai === -1 && bi === -1) return a.title.localeCompare(b.title);
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+}
+
+function formatJobType(type: string): string {
+  return type.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 const typeBadge: Record<string, string> = {
   "Full-time": "bg-sage/15 text-sage",
   "Part-time": "bg-earthen/20 text-brown-body",
-  "Seasonal": "bg-gold/15 text-gold-dark",
+  "Seasonal":  "bg-gold/15 text-gold-dark",
 };
 
-export default function JobsPage() {
+export default async function JobsPage() {
+  const openRoles = await getOpenRoles();
   return (
     <>
       {/* ─── Page hero ─── */}
@@ -113,31 +104,36 @@ export default function JobsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {openRoles.map((role) => (
-              <div
-                key={role.id}
-                className="bg-white rounded-xl border border-earthen/20 shadow-sm p-6 flex flex-col gap-3"
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full ${
-                      typeBadge[role.type] ?? "bg-earthen/15 text-brown-body"
-                    }`}
-                  >
-                    {role.type}
-                  </span>
-                  <span className="font-body text-[10px] text-brown-body/40 tracking-wide uppercase">
-                    Ramnagar, Karnataka
-                  </span>
+            {openRoles.map((role) => {
+              const displayType = formatJobType(role.type);
+              return (
+                <div
+                  key={role._id}
+                  className="bg-white rounded-xl border border-earthen/20 shadow-sm p-6 flex flex-col gap-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full ${
+                        typeBadge[displayType] ?? "bg-earthen/15 text-brown-body"
+                      }`}
+                    >
+                      {displayType}
+                    </span>
+                    <span className="font-body text-[10px] text-brown-body/40 tracking-wide uppercase">
+                      {role.location ?? "Ramnagar, Karnataka"}
+                    </span>
+                  </div>
+                  <h3 className="font-heading text-xl md:text-2xl text-gold-dark font-medium leading-tight">
+                    {role.title}
+                  </h3>
+                  {role.description && (
+                    <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
+                      {role.description}
+                    </p>
+                  )}
                 </div>
-                <h3 className="font-heading text-xl md:text-2xl text-gold-dark font-medium leading-tight">
-                  {role.title}
-                </h3>
-                <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
-                  {role.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

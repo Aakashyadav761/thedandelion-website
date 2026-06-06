@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { sanityClient } from "@/lib/sanity";
+import type { Activity } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Activities & Facilities",
@@ -7,102 +9,24 @@ export const metadata: Metadata = {
     "Swimming pool, Jacuzzi, guided jungle walks, birdwatching, barbeque evenings, and Dandelion Kitchen — everything on offer at The Dandelion – Colonels' Jungle Resort.",
 };
 
-// Static data typed to mirror the Sanity Activity schema.
-// Replace with sanity.fetch() once the project is connected.
-const featuredActivities = [
-  {
-    id: "pool",
-    name: "Swimming Pool",
-    category: "Pool & Water",
-    description:
-      "A full-size pool set among the trees, with a separate baby pool alongside. The perfect place to cool off on a warm afternoon.",
-    image: "/images/pool/IMG-20240417-WA0009.jpg",
-    imageAlt: "Swimming pool at The Dandelion Resort",
-    isChargeable: false,
-    priceNote: "Complimentary",
-  },
-  {
-    id: "jacuzzi",
-    name: "Jacuzzi Pool",
-    category: "Pool & Water",
-    description:
-      "Warm water, quiet surroundings, and nothing to do but unwind. Book a slot at reception.",
-    image: "/images/jacuzzi/Jacuzzi%20pool.jpg",
-    imageAlt: "Jacuzzi pool at The Dandelion Resort",
-    isChargeable: true,
-    priceNote: "₹900 / hour",
-  },
-  {
-    id: "restaurant",
-    name: "Dandelion Kitchen",
-    category: "Dining",
-    description:
-      "Our on-site restaurant serves freshly prepared meals throughout the day. Breakfast is included in your room rate; lunch and dinner are à la carte.",
-    image: "/images/restaurant/20221015_112410.jpg",
-    imageAlt: "Dandelion Kitchen restaurant",
-    isChargeable: true,
-    priceNote: "À la carte (breakfast incl. in stay)",
-  },
-  {
-    id: "barbeque",
-    name: "Barbeque Evenings",
-    category: "Dining",
-    description:
-      "Pick from the menu, fire up the grill yourself, and settle in for a slow evening under the trees at our dedicated barbeque point.",
-    image: "/images/barbeque/20221215_201658.jpg",
-    imageAlt: "Barbeque point at The Dandelion Resort",
-    isChargeable: true,
-    priceNote: "Charged per item ordered",
-  },
-];
+async function getActivities(): Promise<Activity[]> {
+  return sanityClient.fetch(
+    `*[_type == "activity"] | order(category asc, name asc) {
+      _id, _type, name, category, description, isChargeable, priceNote
+    }`
+  );
+}
 
-const moreActivities = [
-  {
-    id: "walks",
-    name: "Guided Jungle Walks",
-    category: "Nature & Wildlife",
-    description:
-      "Walk the forest edge with one of our resident local guides — spot birds, track wildlife signs, and stop for coffee at the forest viewpoint.",
-    isChargeable: false,
-    priceNote: "Coffee at viewpoint: ₹100 / person",
-  },
-  {
-    id: "birdwatching",
-    name: "Birdwatching",
-    category: "Nature & Wildlife",
-    description:
-      "The forest around the resort hosts an exceptional variety of birdlife, including hornbills, kingfishers, and over 200 species across the wider region.",
-    isChargeable: false,
-    priceNote: null,
-  },
-  {
-    id: "machaan",
-    name: "Machaan",
-    category: "Nature & Wildlife",
-    description:
-      "Climb to our elevated forest viewing platform. The best spot on the property for wildlife sightings — especially at dawn and dusk.",
-    isChargeable: false,
-    priceNote: null,
-  },
-  {
-    id: "outdoor-games",
-    name: "Outdoor Games",
-    category: "Recreation",
-    description:
-      "Badminton, volleyball, and pool games on the grounds. Collect equipment from reception.",
-    isChargeable: false,
-    priceNote: null,
-  },
-  {
-    id: "indoor-games",
-    name: "Indoor Games",
-    category: "Recreation",
-    description:
-      "Books, board games, and indoor activities available at the retreat — the right pace for a slow afternoon.",
-    isChargeable: false,
-    priceNote: null,
-  },
-];
+// Images are hardcoded per activity ID for this pass (Sanity images wired separately).
+const activityImages: Record<string, { src: string; alt: string }> = {
+  "activity-swimming-pool":     { src: "/images/pool/IMG-20240417-WA0009.jpg",    alt: "Swimming pool at The Dandelion Resort" },
+  "activity-jacuzzi-pool":      { src: "/images/jacuzzi/Jacuzzi%20pool.jpg",      alt: "Jacuzzi pool at The Dandelion Resort" },
+  "activity-dandelion-kitchen": { src: "/images/restaurant/20221015_112410.jpg",  alt: "Dandelion Kitchen restaurant" },
+  "activity-barbeque":          { src: "/images/barbeque/20221215_201658.jpg",    alt: "Barbeque point at The Dandelion Resort" },
+};
+
+// Featured section: Pool & Water + Dining (have photos)
+const featuredCategories = new Set(["Pool & Water", "Dining"]);
 
 // Category pill colours
 const categoryColour: Record<string, string> = {
@@ -112,7 +36,10 @@ const categoryColour: Record<string, string> = {
   "Recreation":        "bg-gold/15 text-gold-dark",
 };
 
-export default function ActivitiesPage() {
+export default async function ActivitiesPage() {
+  const allActivities = await getActivities();
+  const featuredActivities = allActivities.filter((a) => featuredCategories.has(a.category));
+  const moreActivities = allActivities.filter((a) => !featuredCategories.has(a.category));
   return (
     <>
       {/* ─── Page hero ─── */}
@@ -161,38 +88,43 @@ export default function ActivitiesPage() {
       <section className="bg-cream pb-12 md:pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-            {featuredActivities.map((act) => (
-              <div
-                key={act.id}
-                className="group relative h-72 md:h-80 rounded-xl overflow-hidden"
-              >
-                <Image
-                  src={act.image}
-                  alt={act.imageAlt}
-                  fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-cream">
-                  <span
-                    className={`inline-block font-body text-[10px] font-semibold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full mb-2 ${
-                      act.isChargeable
-                        ? "bg-gold/80 text-brown-dark"
-                        : "bg-sage/60 text-cream"
-                    }`}
-                  >
-                    {act.isChargeable ? act.priceNote : "Complimentary"}
-                  </span>
-                  <h3 className="font-heading text-2xl md:text-3xl font-medium leading-tight">
-                    {act.name}
-                  </h3>
-                  <p className="mt-1.5 font-body text-sm text-cream/70 leading-relaxed line-clamp-2">
-                    {act.description}
-                  </p>
+            {featuredActivities.map((act) => {
+              const img = activityImages[act._id];
+              return (
+                <div
+                  key={act._id}
+                  className="group relative h-72 md:h-80 rounded-xl overflow-hidden"
+                >
+                  {img && (
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5 text-cream">
+                    <span
+                      className={`inline-block font-body text-[10px] font-semibold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full mb-2 ${
+                        act.isChargeable
+                          ? "bg-gold/80 text-brown-dark"
+                          : "bg-sage/60 text-cream"
+                      }`}
+                    >
+                      {act.isChargeable ? act.priceNote : "Complimentary"}
+                    </span>
+                    <h3 className="font-heading text-2xl md:text-3xl font-medium leading-tight">
+                      {act.name}
+                    </h3>
+                    <p className="mt-1.5 font-body text-sm text-cream/70 leading-relaxed line-clamp-2">
+                      {act.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -223,7 +155,7 @@ export default function ActivitiesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {moreActivities.map((act) => (
               <div
-                key={act.id}
+                key={act._id}
                 className="bg-earthen/8 rounded-xl p-6 flex flex-col gap-3"
               >
                 <div className="flex items-center justify-between">

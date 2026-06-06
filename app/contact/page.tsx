@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { sanityClient } from "@/lib/sanity";
+import type { SiteContent } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
     "Get in touch with The Dandelion – Colonels' Jungle Resort. Find us on the Bangalore–Goa Highway, 7 km from Ramnagar, Karnataka.",
 };
+
+async function getSiteContent(): Promise<SiteContent | null> {
+  return sanityClient.fetch(
+    `*[_type == "siteContent"][0]{ _id, _type, story, address, phone, email, instagramUrl }`
+  );
+}
 
 const guidelines = [
   "Do not enter the surrounding forest unaccompanied — staff are happy to guide jungle walks.",
@@ -20,7 +28,8 @@ const guidelines = [
   "Books and games are available at the retreat.",
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getSiteContent();
   return (
     <>
       {/* ─── Hero ─── */}
@@ -51,19 +60,14 @@ export default function ContactPage() {
 
             {/* About */}
             <div>
-              <p className="font-body text-[10px] tracking-[0.2em] uppercase text-brown-body/50 mb-2">
+              <p className="font-body text-[10px] tracking-[0.2em] uppercase text-brown-body font-semibold mb-2">
                 Our story
               </p>
               <h2 className="font-heading text-3xl md:text-4xl text-gold-dark font-medium mb-6">
                 A Natural Wilderness,<br />Warmly Held
               </h2>
               <p className="font-body text-base text-brown-body leading-relaxed mb-5">
-                At The Dandelion, we believe the best stays are the ones that feel personal.
-                Tucked on the fringe of Dandeli&apos;s forest in the Western Ghats, we offer a
-                natural, unmanicured wilderness where genuine warmth matters as much as the
-                birdsong. From guided jungle walks to slow evenings around the barbeque,
-                everything is looked after personally — so that what begins as a visit becomes
-                a memory you carry home.
+                {site?.story ?? "At The Dandelion, we believe the best stays are the ones that feel personal. Tucked on the fringe of Dandeli’s forest in the Western Ghats, we offer a natural, unmanicured wilderness where genuine warmth matters as much as the birdsong. From guided jungle walks to slow evenings around the barbeque, everything is looked after personally — so that what begins as a visit becomes a memory you carry home."}
               </p>
               <p className="font-body text-sm text-brown-body/80 leading-relaxed">
                 The Dandelion – Colonels&apos; Jungle Resort is a highly rated jungle retreat
@@ -79,7 +83,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-8">
 
               <div>
-                <h3 className="font-body text-[10px] tracking-[0.18em] uppercase text-brown-body/50 mb-4">
+                <h3 className="font-body text-[10px] tracking-[0.18em] uppercase text-brown-body font-semibold mb-4">
                   Reach us
                 </h3>
                 <ul className="flex flex-col gap-4">
@@ -88,10 +92,10 @@ export default function ContactPage() {
                     <div>
                       <p className="font-body text-sm font-medium text-forest">Phone / WhatsApp</p>
                       <a
-                        href="https://wa.me/917764006404"
+                        href={`https://wa.me/${(site?.phone ?? "+91 7764006404").replace(/\D/g, "")}`}
                         className="font-body text-sm text-brown-body hover:text-gold transition-colors"
                       >
-                        +91 77640 06404
+                        {site?.phone ?? "+91 77640 06404"}
                       </a>
                     </div>
                   </li>
@@ -100,10 +104,10 @@ export default function ContactPage() {
                     <div>
                       <p className="font-body text-sm font-medium text-forest">Email</p>
                       <a
-                        href="mailto:Help@theDandelion.in"
+                        href={`mailto:${site?.email ?? "Help@theDandelion.in"}`}
                         className="font-body text-sm text-brown-body hover:text-gold transition-colors"
                       >
-                        Help@theDandelion.in
+                        {site?.email ?? "Help@theDandelion.in"}
                       </a>
                     </div>
                   </li>
@@ -112,8 +116,7 @@ export default function ContactPage() {
                     <div>
                       <p className="font-body text-sm font-medium text-forest">Address</p>
                       <p className="font-body text-sm text-brown-body leading-relaxed">
-                        Village Chinchewadi, Taluka Khanapur,<br />
-                        Dist. Belgavi, Karnataka
+                        {site?.address ?? "Village Chinchewadi, Taluka Khanapur, Dist. Belgavi, Karnataka"}
                       </p>
                     </div>
                   </li>
@@ -130,7 +133,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="font-body text-[10px] tracking-[0.18em] uppercase text-brown-body/50 mb-4">
+                <h3 className="font-body text-[10px] tracking-[0.18em] uppercase text-brown-body font-semibold mb-4">
                   How to reach us
                 </h3>
                 <ul className="flex flex-col gap-3">

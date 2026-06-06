@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { sanityClient } from "@/lib/sanity";
+import type { Attraction } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Around Us",
@@ -7,81 +9,39 @@ export const metadata: Metadata = {
     "White-water rafting on the Kali River, jungle safaris, Syntheri Rocks, and heritage day trips to Hampi and Badami — all within reach of The Dandelion – Colonels' Jungle Resort.",
 };
 
-// Static data typed to mirror the Sanity Attraction schema.
-// Replace with sanity.fetch() once the Sanity project is connected.
-// Images: add royalty-free src strings (Unsplash / Wikimedia) when available.
-const nearbyAttractions = [
-  {
-    id: "kali-river",
-    name: "Kali River Adventures",
-    category: "Adventure",
-    categoryColour: "bg-gold/15 text-gold-dark",
-    distance: "~40–50 min drive",
-    description:
-      "The Kali River runs through the heart of Dandeli forest, offering some of the finest white-water rafting in the Western Ghats. Beyond the rapids, the same stretch has kayaking, coracle rides, ziplining, and river crossings.",
-    highlight: "Rapids at their best: October–March",
-    bookingNote: "Resort assists with bookings, free of charge",
-  },
-  {
-    id: "safari",
-    name: "Dandeli Jungle Safari",
-    category: "Wildlife",
-    categoryColour: "bg-forest/15 text-forest",
-    distance: "~1 hr 20 min drive",
-    description:
-      "A guided jeep safari through the Dandeli Wildlife Sanctuary — one of Karnataka's most biodiverse forests. Home to tigers, leopards, gaur, sloth bears, and exceptional birdlife.",
-    highlight: "Tickets purchased at the counter on-site",
-    bookingNote: "Resort helps plan the trip; tickets not pre-bookable",
-  },
-  {
-    id: "syntheri",
-    name: "Syntheri Rocks",
-    category: "Nature",
-    categoryColour: "bg-sage/15 text-sage",
-    distance: "~1 hr 40 min drive",
-    description:
-      "A dramatic basalt outcrop rising from the forest floor — one of the region's most striking natural landmarks. The walk to the base passes through dense jungle canopy.",
-    highlight: null,
-    bookingNote: "Resort assists with bookings, free of charge",
-  },
-  {
-    id: "birdwatching",
-    name: "Regional Birdwatching",
-    category: "Nature & Wildlife",
-    categoryColour: "bg-sage/15 text-sage",
-    distance: "On property & surrounds",
-    description:
-      "The Dandeli region has over 200 recorded bird species — hornbills, kingfishers, paradise flycatchers, and much more. Start on the resort grounds; our local guides know the best spots.",
-    highlight: "Best at dawn and dusk",
-    bookingNote: "Guided walks arranged by the resort",
-  },
-];
+async function getAttractions(): Promise<Attraction[]> {
+  return sanityClient.fetch(
+    `*[_type == "attraction"] | order(name asc) {
+      _id, _type, name, description, distance
+    }`
+  );
+}
 
-const heritageTrips = [
-  {
-    id: "hampi",
-    name: "Hampi",
-    tag: "UNESCO World Heritage",
-    description:
-      "The ruins of the Vijayanagara Empire — one of India's most extraordinary historical sites. Boulder-strewn landscapes, towering temples, and centuries of history spread across a vast area.",
-  },
-  {
-    id: "badami",
-    name: "Badami Caves",
-    tag: "Rock-cut Temples",
-    description:
-      "Stunning 6th-century cave temples carved directly into a sandstone cliff, overlooking a sacred lake. Four caves, each with intricate sculptures from the Chalukya period.",
-  },
-  {
-    id: "pattadakal",
-    name: "Pattadakal",
-    tag: "UNESCO World Heritage",
-    description:
-      "A group of 8th-century temples representing the height of Chalukya architecture, blending northern and southern Indian styles. A peaceful, less-visited complement to Badami and Hampi.",
-  },
-];
+// UI-only config: category label, colour, highlight, bookingNote — keyed by Sanity _id.
+// These are presentation details not stored in the CMS.
+const attractionUI: Record<string, {
+  category: string;
+  categoryColour: string;
+  highlight: string | null;
+  bookingNote: string;
+}> = {
+  "attraction-kali-river":     { category: "Adventure",        categoryColour: "bg-gold/15 text-gold-dark",  highlight: "Rapids at their best: October–March",       bookingNote: "Resort assists with bookings, free of charge" },
+  "attraction-jungle-safari":  { category: "Wildlife",         categoryColour: "bg-forest/15 text-forest",   highlight: "Tickets purchased at the counter on-site",  bookingNote: "Resort helps plan the trip; tickets not pre-bookable" },
+  "attraction-syntheri-rocks": { category: "Nature",           categoryColour: "bg-sage/15 text-sage",        highlight: null,                                        bookingNote: "Resort assists with bookings, free of charge" },
+  "attraction-birdwatching":   { category: "Nature & Wildlife",categoryColour: "bg-sage/15 text-sage",        highlight: "Best at dawn and dusk",                     bookingNote: "Guided walks arranged by the resort" },
+};
 
-export default function AroundUsPage() {
+// Heritage trips: those with distance "Several hours drive"
+const heritageUI: Record<string, { tag: string }> = {
+  "attraction-hampi":   { tag: "UNESCO World Heritage" },
+  "attraction-badami":  { tag: "Rock-cut Temples" },
+  "attraction-pattadakal": { tag: "UNESCO World Heritage" },
+};
+
+export default async function AroundUsPage() {
+  const allAttractions = await getAttractions();
+  const nearbyAttractions = allAttractions.filter((a) => a._id in attractionUI);
+  const heritageTrips = allAttractions.filter((a) => a._id in heritageUI);
   return (
     <>
       {/* ─── Page hero ─── */}
@@ -145,44 +105,42 @@ export default function AroundUsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {nearbyAttractions.map((attr) => (
-              <div
-                key={attr.id}
-                className="rounded-xl overflow-hidden border border-earthen/20 bg-white shadow-sm flex flex-col"
-              >
-                {/* Coloured header band */}
-                <div className="bg-earthen/8 px-6 py-4 flex items-center justify-between gap-4">
-                  <span
-                    className={`font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full ${attr.categoryColour}`}
-                  >
-                    {attr.category}
-                  </span>
-                  <span className="font-body text-xs text-brown-body/60 text-right">
-                    {attr.distance}
-                  </span>
-                </div>
-
-                {/* Body */}
-                <div className="px-6 py-5 flex flex-col gap-3 flex-1">
-                  <h3 className="font-heading text-2xl md:text-3xl text-gold-dark font-medium leading-tight">
-                    {attr.name}
-                  </h3>
-                  <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
-                    {attr.description}
-                  </p>
-                  <div className="flex flex-col gap-1.5 pt-1 border-t border-earthen/15">
-                    {attr.highlight && (
-                      <p className="font-body text-xs text-brown-body/60">
-                        <span className="text-sage font-medium">↳</span>&nbsp;{attr.highlight}
-                      </p>
-                    )}
-                    <p className="font-body text-xs text-brown-body/60">
-                      <span className="text-sage font-medium">↳</span>&nbsp;{attr.bookingNote}
+            {nearbyAttractions.map((attr) => {
+              const ui = attractionUI[attr._id];
+              return (
+                <div
+                  key={attr._id}
+                  className="rounded-xl overflow-hidden border border-earthen/20 bg-white shadow-sm flex flex-col"
+                >
+                  <div className="bg-earthen/8 px-6 py-4 flex items-center justify-between gap-4">
+                    <span className={`font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full ${ui.categoryColour}`}>
+                      {ui.category}
+                    </span>
+                    <span className="font-body text-xs text-brown-body/60 text-right">
+                      {attr.distance}
+                    </span>
+                  </div>
+                  <div className="px-6 py-5 flex flex-col gap-3 flex-1">
+                    <h3 className="font-heading text-2xl md:text-3xl text-gold-dark font-medium leading-tight">
+                      {attr.name}
+                    </h3>
+                    <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
+                      {attr.description}
                     </p>
+                    <div className="flex flex-col gap-1.5 pt-1 border-t border-earthen/15">
+                      {ui.highlight && (
+                        <p className="font-body text-xs text-brown-body/60">
+                          <span className="text-sage font-medium">↳</span>&nbsp;{ui.highlight}
+                        </p>
+                      )}
+                      <p className="font-body text-xs text-brown-body/60">
+                        <span className="text-sage font-medium">↳</span>&nbsp;{ui.bookingNote}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -217,22 +175,25 @@ export default function AroundUsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {heritageTrips.map((trip) => (
-              <div
-                key={trip.id}
-                className="bg-earthen/8 rounded-xl p-6 flex flex-col gap-3"
-              >
-                <span className="font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-gold/15 text-gold-dark self-start">
-                  {trip.tag}
-                </span>
-                <h3 className="font-heading text-2xl md:text-3xl text-gold-dark font-medium leading-tight">
-                  {trip.name}
-                </h3>
-                <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
-                  {trip.description}
-                </p>
-              </div>
-            ))}
+            {heritageTrips.map((trip) => {
+              const ui = heritageUI[trip._id];
+              return (
+                <div
+                  key={trip._id}
+                  className="bg-earthen/8 rounded-xl p-6 flex flex-col gap-3"
+                >
+                  <span className="font-body text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full bg-gold/15 text-gold-dark self-start">
+                    {ui.tag}
+                  </span>
+                  <h3 className="font-heading text-2xl md:text-3xl text-gold-dark font-medium leading-tight">
+                    {trip.name}
+                  </h3>
+                  <p className="font-body text-sm text-brown-body leading-relaxed flex-1">
+                    {trip.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
