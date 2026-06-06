@@ -117,7 +117,7 @@ export default async function AccommodationPage() {
             <span className="h-px w-12 bg-earthen/50" />
           </div>
           <p className="font-body text-base md:text-lg text-brown-body leading-relaxed">
-            Two character-filled stays on 11 acres of forested land — each built to let you
+            Family and Couple oriented stays on 11 acres of forested land — each built to let you
             slow down and settle in. All rates are flat per-night and include breakfast.
           </p>
           <div className="flex items-center justify-center gap-4 mt-6">
