@@ -19,6 +19,11 @@ const ROLE_ORDER = [
   "Maintenance Staff",
 ];
 
+async function getSiteEmail(): Promise<string> {
+  const site = await sanityClient.fetch(`*[_type == "siteContent"][0]{ email }`);
+  return site?.email ?? "Help@theDandelion.in";
+}
+
 async function getOpenRoles(): Promise<Job[]> {
   const jobs: Job[] = await sanityClient.fetch(
     `*[_type == "job" && isOpen == true] {
@@ -46,7 +51,7 @@ const typeBadge: Record<string, string> = {
 };
 
 export default async function JobsPage() {
-  const openRoles = await getOpenRoles();
+  const [openRoles, email] = await Promise.all([getOpenRoles(), getSiteEmail()]);
   return (
     <>
       {/* ─── Page hero ─── */}
@@ -175,7 +180,7 @@ export default async function JobsPage() {
             </div>
 
             {/* Right: form */}
-            <ApplicationForm />
+            <ApplicationForm email={email} />
           </div>
         </div>
       </section>

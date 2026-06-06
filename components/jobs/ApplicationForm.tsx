@@ -13,7 +13,7 @@ const ROLES = [
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export default function ApplicationForm() {
+export default function ApplicationForm({ email = "Help@theDandelion.in" }: { email?: string }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -48,8 +48,8 @@ export default function ApplicationForm() {
         <p className="font-body text-sm text-brown-body leading-relaxed">
           Thank you for your interest in joining The Dandelion. We&apos;ll be in touch
           shortly. If you haven&apos;t already, please email your CV to{" "}
-          <a href="mailto:Help@theDandelion.in" className="text-sage hover:text-gold transition-colors">
-            Help@theDandelion.in
+          <a href={`mailto:${email}`} className="text-sage hover:text-gold transition-colors">
+            {email}
           </a>
           .
         </p>
@@ -148,7 +148,7 @@ export default function ApplicationForm() {
 
       {status === "error" && (
         <p className="font-body text-xs text-red-600">
-          Something went wrong. Please try again or email us directly at Help@theDandelion.in.
+          Something went wrong. Please try again or email us directly at {email}.
         </p>
       )}
 

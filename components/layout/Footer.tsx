@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { sanityClient } from "@/lib/sanity";
 
 const quickLinks = [
   { href: "/accommodation", label: "Accommodation" },
@@ -10,7 +11,9 @@ const quickLinks = [
   { href: "/jobs", label: "Careers" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const site = await sanityClient.fetch(`*[_type == "siteContent"][0]{ email }`);
+  const email: string = site?.email ?? "Help@theDandelion.in";
   return (
     <footer className="bg-forest text-cream/80 font-body">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pt-12 pb-0">
@@ -73,10 +76,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:Help@theDandelion.in"
+                  href={`mailto:${email}`}
                   className="hover:text-gold transition-colors"
                 >
-                  Help@theDandelion.in
+                  {email}
                 </a>
               </li>
               <li className="text-cream/50 leading-relaxed">
