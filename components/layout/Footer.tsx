@@ -102,10 +102,19 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-3 pb-3 border-t border-sage/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-cream/40">
+        <div className="mt-8 pt-3 pb-3 border-t border-sage/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cream/40">
           <p>
             &copy; {new Date().getFullYear()} The Dandelion – Colonels&apos; Jungle Resort. All rights reserved.
           </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy-policy" className="hover:text-gold transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-cream/20">|</span>
+            <Link href="/terms-and-conditions" className="hover:text-gold transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
           <p>theDandelion.in</p>
         </div>
       </div>

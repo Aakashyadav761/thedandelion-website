@@ -14,7 +14,7 @@ async function getPublishedRooms(): Promise<Room[]> {
   return sanityClient.fetch(
     `*[_type == "room" && isPublished == true] | order(unitType asc) {
       _id, _type, name, unitType, description, rate, rateIncludes,
-      maxAdults, extraPersonCharge, whatsappMessage, isPublished
+      maxAdults, extraPersonCharge, whatsappMessage, isPublished, facilities
     }`
   );
 }
@@ -71,6 +71,7 @@ function buildUnitData(rooms: Room[]): UnitData[] {
       extraPersonCharge: rep.extraPersonCharge ?? null,
       images: imgs.images,
       imageLayout: imgs.imageLayout,
+      facilities: rep.facilities ?? [],
       whatsappMessage:
         rep.whatsappMessage ??
         `Hi, I'd like to enquire about a ${unitType.replace(/s$/, "")} at The Dandelion – Colonels' Jungle Resort.`,

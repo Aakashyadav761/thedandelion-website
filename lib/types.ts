@@ -21,6 +21,7 @@ export interface Room {
   maxAdults: number;
   extraPersonCharge?: number;
   images: SanityImage[];
+  facilities?: string[];
   isPublished: boolean;
   whatsappMessage?: string;
 }

@@ -1,4 +1,5 @@
 import UnitGallery, { type GalleryPhoto } from "./UnitGallery";
+import FacilitiesGrid from "./FacilitiesGrid";
 
 export interface UnitData {
   id: string;
@@ -13,6 +14,7 @@ export interface UnitData {
   images: GalleryPhoto[];
   imageLayout: "left" | "right";
   whatsappMessage: string;
+  facilities: string[];
 }
 
 function formatRate(rate: number) {
@@ -120,6 +122,19 @@ export default function UnitSection({ unit }: { unit: UnitData }) {
 
           </div>
         </div>
+
+        {/* Facilities & amenities — icon grid, full width */}
+        {unit.facilities.length > 0 && (
+          <div className="mt-12 md:mt-16 pt-10 md:pt-12 border-t border-earthen/25">
+            <p className="font-body text-[10px] tracking-[0.2em] uppercase text-brown-body/50 mb-2 text-center md:text-left">
+              In every {unit.heading.toLowerCase()}
+            </p>
+            <h3 className="font-heading text-2xl md:text-3xl text-gold-dark font-medium mb-7 text-center md:text-left">
+              Facilities &amp; Amenities
+            </h3>
+            <FacilitiesGrid facilities={unit.facilities} />
+          </div>
+        )}
       </div>
     </section>
   );

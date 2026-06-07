@@ -37,6 +37,10 @@ Thumbs.db
 !public/**/*.svg
 !public/**/*.webp
 
+# Favicon files — Next.js requires these inside app/
+!app/icon.png
+!app/apple-icon.png
+
 # Sanity
 .sanity/
 

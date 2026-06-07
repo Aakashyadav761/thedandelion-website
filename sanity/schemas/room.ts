@@ -63,6 +63,13 @@ export const roomSchema = {
       of: [{ type: "image", options: { hotspot: true } }],
     },
     {
+      name: "facilities",
+      title: "Facilities & Amenities",
+      type: "array",
+      of: [{ type: "string" }],
+      description: 'Shown as an icon grid, e.g. "King-size bed", "Air Conditioning", "Forest View"',
+    },
+    {
       name: "isPublished",
       title: "Published",
       type: "boolean",
