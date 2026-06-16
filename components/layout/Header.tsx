@@ -5,11 +5,11 @@ import MobileMenu from "./MobileMenu";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/accommodation", label: "Accommodation" },
+  { href: "/corporate", label: "Corporate" },
+  { href: "/groups", label: "Groups & Events" },
   { href: "/galleries", label: "Galleries" },
   { href: "/activities", label: "Activities" },
   { href: "/around-us", label: "Around Us" },
-  { href: "/jobs", label: "Jobs" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
