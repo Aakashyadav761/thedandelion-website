@@ -18,10 +18,14 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
 | Jobs | ✅ Complete | `31e3242` |
 | Contact Us | ✅ Complete | — (see latest) |
 | Galleries | ✅ Complete | — (see latest) |
+| Groups & Events | ✅ Complete | `361d679` |
+| Corporate Offsites | ✅ Complete | `361d679` |
 
 > **Stable baseline (Home + Accommodation):** commit `c0f685d` — signed off by owner.
 > **V1 complete:** commit `9b38df5` — all 7 pages built and mobile-verified. Sanity not yet connected (placeholder credentials).
 > **V2 — Sanity connected:** commit `34995fe` — Studio live at `/studio`, all text content (rates, descriptions, activities, attractions, jobs, site content) wired to Sanity. Images still hardcoded from `Pictures/` (to be moved to Sanity in the next pass).
+> **V3 — Groups & Corporate pages:** commit `361d679` — Groups & Events and Corporate Offsites pages added; reopening banner, nav/footer updates.
+> **Cleanup:** commit `371569b` — removed 105 Playwright screenshot files from root (~39 MB), `.playwright-mcp/` session logs folder (~4.7 MB), and unused default Next.js SVGs from `public/` (file, globe, next, vercel, window).
 
 ## Tech Stack
 - **Framework:** Next.js (App Router)
