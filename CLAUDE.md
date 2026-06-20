@@ -26,6 +26,7 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
 > **V2 — Sanity connected:** commit `34995fe` — Studio live at `/studio`, all text content (rates, descriptions, activities, attractions, jobs, site content) wired to Sanity. Images still hardcoded from `Pictures/` (to be moved to Sanity in the next pass).
 > **V3 — Groups & Corporate pages:** commit `361d679` — Groups & Events and Corporate Offsites pages added; reopening banner, nav/footer updates.
 > **Cleanup:** commit `371569b` — removed 105 Playwright screenshot files from root (~39 MB), `.playwright-mcp/` session logs folder (~4.7 MB), and unused default Next.js SVGs from `public/` (file, globe, next, vercel, window).
+> **SEO pass:** commits `2254498`–`cee7f11` — Google Analytics 4 (`G-3YSTT1N5GT`) via `@next/third-parties`; Google Search Console verification file in `public/`; `app/sitemap.ts` (8 public pages); `app/robots.ts` (allow all, sitemap pointer); JSON-LD `LodgingBusiness` schema in `<head>`; Open Graph + Twitter Card metadata with OG image (`public/og-image.jpeg`); fixed Groups & Corporate titles to use layout template; curly apostrophe (U+2019) in all "Colonels'" instances in metadata.
 
 ## Tech Stack
 - **Framework:** Next.js (App Router)
@@ -38,6 +39,7 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.1035446364936!2d74.5419077!3d15.424961799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbf17310991aa99%3A0xeace265f1e5fb716!2sThe%20Dandelion%20-%20Colonels%20Jungle%20Resort!5e0!3m2!1sen!2sin!4v1780556125962!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   ```
 - **Forms:** Web3Forms (no backend) for the Jobs application form. Access key: `306cdf2b-c9bd-4015-9d39-b82d4d4c6525` (safe to expose in frontend code; it's an alias for the resort's email). Submissions go to Help@theDandelion.in. Free plan covers 250 submissions/month. File uploads are a Pro feature, so the form is TEXT-ONLY for v1 — see Jobs page below.
+- **Analytics:** Google Analytics 4 via `@next/third-parties/google` — measurement ID `G-3YSTT1N5GT`. The `<GoogleAnalytics>` component is placed in `app/layout.tsx` inside `<body>`, after `<Footer />`.
 
 ## Commands
 - `npm run dev` — start dev server (uses Webpack; see note below)
@@ -129,6 +131,19 @@ Use these exact values. Color encodes role — roughly a 60/30/10 split (sage / 
 - **Reference images (optional):** If a `design-references/` folder exists, it holds extra visual inspiration — look at these for mood, spacing, and density. Don't confuse these with the real photos in `Pictures/`.
 - **Screenshot and iterate:** After building or changing any page, view the rendered result (via Playwright MCP) and self-correct — check spacing, alignment, that the gold accent stands out, and that headings use Cormorant Garamond. Don't consider a page "done" from code alone.
 - **Check both modes:** Verify layouts at mobile and desktop widths, and confirm text contrast meets WCAG AA against the warm palette.
+
+## SEO Setup
+All SEO infrastructure is in place. Do not duplicate or override these in individual pages unless adding page-specific overrides.
+
+- **Canonical domain:** `https://www.thedandelion.in` — `metadataBase` in `app/layout.tsx` is set to this.
+- **Title template:** `"%s | The Dandelion – Colonels’ Jungle Resort"` — all pages must export a short `title` string (e.g. `"Accommodation"`) and the suffix is appended automatically. Never set a full standalone title on a page.
+- **Sitemap:** `app/sitemap.ts` — includes 8 public pages (`/`, `/accommodation`, `/activities`, `/around-us`, `/galleries`, `/contact`, `/groups`, `/corporate`). Excludes `/jobs`, `/privacy-policy`, `/terms-and-conditions`.
+- **Robots:** `app/robots.ts` — allows all crawlers, sitemap at `https://www.thedandelion.in/sitemap.xml`.
+- **Open Graph + Twitter Card:** Defined in root layout metadata. OG image at `public/og-image.jpeg` (1200×630), served from `https://www.thedandelion.in/og-image.jpeg`.
+- **JSON-LD:** `LodgingBusiness` schema injected via `<script type="application/ld+json">` in `<head>` in `app/layout.tsx`.
+- **Google Search Console:** Verification file at `public/googleaae50644923b21c4.html`.
+- **Apostrophe convention:** All instances of "Colonels'" in metadata use the Unicode right single quotation mark `’` (not a straight apostrophe `'`) to avoid HTML entity encoding in social previews.
+- **Reference doc:** `SEO.md` in the project root lists every page's current title and description.
 
 ## Out of Scope for v1
 - Online payments
