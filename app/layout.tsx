@@ -29,6 +29,30 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://thedandelion.in"),
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  name: "The Dandelion – Colonels' Jungle Resort",
+  url: "https://www.thedandelion.in",
+  description:
+    "A jungle resort on the fringes of Dandeli forest in the Western Ghats, on the Bangalore - Goa Highway, near Ramnagar, Belgavi, Karnataka. 1 hour drive from Belgaum, Hubbali and Darwad.",
+  telephone: "+91-7764006404",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "near Ramnagar",
+    addressRegion: "Belgavi district, Karnataka",
+    addressCountry: "IN",
+  },
+  amenityFeature: [
+    "Swimming Pool",
+    "Jacuzzi",
+    "Restaurant",
+    "Guided Nature Walks",
+    "Birdwatching",
+    "Barbeque",
+  ].map((name) => ({ "@type": "LocationFeatureSpecification", name })),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,6 +63,12 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${mulish.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-body text-brown-body bg-cream">
         <Header />
         <main className="flex-1">{children}</main>
