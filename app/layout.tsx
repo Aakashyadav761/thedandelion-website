@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Mulish } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600"],
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <GoogleAnalytics gaId="G-3YSTT1N5GT" />
       </body>
     </html>
   );
