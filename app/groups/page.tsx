@@ -3,7 +3,7 @@ import Image from "next/image";
 import ReopeningBanner from "@/components/layout/ReopeningBanner";
 
 export const metadata: Metadata = {
-  title: "Groups & Events – The Dandelion Colonels' Jungle Resort",
+  title: "Groups & Events",
   description:
     "Book The Dandelion as an exclusive full-property buyout for your group of 16 to 50 adults. Ideal for family reunions, milestone birthdays, friend trips, and weddings in the Western Ghats.",
 };

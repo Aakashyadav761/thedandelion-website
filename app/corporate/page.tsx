@@ -3,7 +3,7 @@ import Image from "next/image";
 import ReopeningBanner from "@/components/layout/ReopeningBanner";
 
 export const metadata: Metadata = {
-  title: "Corporate Offsites – The Dandelion Colonels' Jungle Resort",
+  title: "Corporate Offsites",
   description:
     "Plan your team's corporate offsite at The Dandelion, Western Ghats. Full-property exclusive for up to 50 pax, conference setup, all meals, and built-in team activities.",
 };
