@@ -26,7 +26,30 @@ export const metadata: Metadata = {
   },
   description:
     "A jungle resort on the fringes of Dandeli forest in the Western Ghats. Cottages, huts, pool, guided nature walks, and wildlife — near Ramnagar, Belgavi, Karnataka.",
-  metadataBase: new URL("https://thedandelion.in"),
+  metadataBase: new URL("https://www.thedandelion.in"),
+  openGraph: {
+    title: "The Dandelion – Colonels' Jungle Resort",
+    description:
+      "A jungle retreat on the fringes of Dandeli forest — cottages, huts, guided walks, wildlife, and warm hospitality near Ramnagar, Karnataka.",
+    url: "https://www.thedandelion.in",
+    siteName: "The Dandelion – Colonels' Jungle Resort",
+    images: [
+      {
+        url: "https://www.thedandelion.in/og-image.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "The Dandelion – Colonels' Jungle Resort, Dandeli, Western Ghats",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Dandelion – Colonels' Jungle Resort",
+    description:
+      "A jungle retreat on the fringes of Dandeli forest — cottages, huts, guided walks, wildlife, and warm hospitality near Ramnagar, Karnataka.",
+    images: ["https://www.thedandelion.in/og-image.jpeg"],
+  },
 };
 
 const jsonLd = {
