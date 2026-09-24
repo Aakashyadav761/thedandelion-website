@@ -188,6 +188,19 @@ export default async function ContactPage() {
               title="The Dandelion – Colonels' Jungle Resort on Google Maps"
             />
           </div>
+          <div className="mt-6 flex justify-center">
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=15.4249618%2C74.5419077"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gold text-brown-dark font-body font-semibold text-sm tracking-wide px-7 py-3.5 rounded hover:bg-gold/90 transition-colors"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z" />
+              </svg>
+              Get Directions
+            </a>
+          </div>
         </div>
       </section>
 
