@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import ReopeningBanner from "@/components/layout/ReopeningBanner";
+import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 
 export const metadata: Metadata = {
   title: "Corporate Offsites",
@@ -14,11 +14,11 @@ const WA_LINK =
 const features = [
   {
     title: "Up to 50 pax",
-    body: "Full property exclusive. New units opening September 2026.",
+    body: "Full property exclusive — the entire resort reserved for your team alone.",
   },
   {
     title: "Easy to Reach",
-    body: "3–4 hours from Belgaum, Hubli, Dharwad, Bangalore, and Goa.",
+    body: "Roughly 1.5 hours from Belagavi and Dharwad, about 2 from Hubballi — and just 500 m off the Bangalore–Goa highway.",
   },
   {
     title: "Conference & AV Ready",
@@ -53,7 +53,7 @@ const WhatsAppIcon = () => (
 export default function CorporatePage() {
   return (
     <>
-      <ReopeningBanner />
+      <AnnouncementBanner />
 
       {/* ─── Hero ─── */}
       <section className="relative h-[60vh] min-h-[420px] flex items-end overflow-hidden">

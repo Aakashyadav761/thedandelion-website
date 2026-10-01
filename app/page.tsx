@@ -3,6 +3,7 @@ import Hero from "@/components/home/Hero";
 import IntroSection from "@/components/home/IntroSection";
 import HighlightGrid from "@/components/home/HighlightGrid";
 import ReviewsSection from "@/components/home/ReviewsSection";
+import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 
 export const metadata: Metadata = {
   title:
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <AnnouncementBanner />
+
       <Hero />
       <IntroSection />
       <HighlightGrid />

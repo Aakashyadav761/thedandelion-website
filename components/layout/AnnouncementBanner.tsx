@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const SESSION_KEY = "reopening-banner-dismissed";
+const SESSION_KEY = "announcement-banner-dismissed";
 
-export default function ReopeningBanner() {
+export default function AnnouncementBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -47,13 +47,13 @@ export default function ReopeningBanner() {
         </div>
 
         <p className="font-body text-[10px] tracking-[0.22em] uppercase text-earthen mb-3">
-          Season Update
+          Coming Soon
         </p>
         <p className="font-heading text-2xl md:text-3xl text-cream font-medium leading-snug mb-3">
-          Reopening September 2026
+          A Japanese-Style Steam Bath
         </p>
         <p className="font-body text-sm text-cream/70 leading-relaxed">
-          Accepting reservations now for September onwards.
+          Opening very soon — one more way to unwind after a day in the forest.
         </p>
 
         <button

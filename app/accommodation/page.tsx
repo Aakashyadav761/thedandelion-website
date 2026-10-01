@@ -3,7 +3,7 @@ import Image from "next/image";
 import UnitSection, { type UnitData } from "@/components/accommodation/UnitSection";
 import { sanityClient } from "@/lib/sanity";
 import type { Room } from "@/lib/types";
-import ReopeningBanner from "@/components/layout/ReopeningBanner";
+import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 
 export const metadata: Metadata = {
   title: "Accommodation",
@@ -85,7 +85,7 @@ export default async function AccommodationPage() {
   const units = buildUnitData(rooms);
   return (
     <>
-      <ReopeningBanner />
+      <AnnouncementBanner />
 
       {/* ─── Page hero ─── */}
       <section className="relative h-[55vh] min-h-[380px] flex items-end overflow-hidden">

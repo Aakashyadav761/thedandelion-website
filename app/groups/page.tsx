@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import ReopeningBanner from "@/components/layout/ReopeningBanner";
+import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
 
 export const metadata: Metadata = {
   title: "Groups & Events",
@@ -36,7 +36,7 @@ const WhatsAppIcon = () => (
 export default function GroupsPage() {
   return (
     <>
-      <ReopeningBanner />
+      <AnnouncementBanner />
 
       {/* ─── Hero ─── */}
       <section className="relative h-[60vh] min-h-[420px] flex items-end overflow-hidden">
@@ -59,7 +59,7 @@ export default function GroupsPage() {
           <p className="mt-4 font-body text-sm md:text-base text-cream/75 max-w-2xl leading-relaxed">
             The Dandelion is available for exclusive full-property buyouts — ideal for groups of 16 to
             50 adults. No shared property, no strangers. Just your group, 11 acres of forest, and
-            everything that comes with it. New units opening September 2026.
+            everything that comes with it.
           </p>
           <a
             href={WA_LINK}
