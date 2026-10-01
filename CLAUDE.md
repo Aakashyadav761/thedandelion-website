@@ -20,12 +20,14 @@ A showcase website for **The Dandelion – Colonels' Jungle Resort** (referred t
 | Galleries | ✅ Complete | — (see latest) |
 | Groups & Events | ✅ Complete | `361d679` |
 | Corporate Offsites | ✅ Complete | `361d679` |
+| Dandelion Kitchen | ✅ Complete | — (see latest) |
 
 > **Stable baseline (Home + Accommodation):** commit `c0f685d` — signed off by owner.
 > **V1 complete:** commit `9b38df5` — all 7 pages built and mobile-verified. Sanity not yet connected (placeholder credentials).
 > **V2 — Sanity connected:** commit `34995fe` — Studio live at `/studio`, all text content (rates, descriptions, activities, attractions, jobs, site content) wired to Sanity. Images still hardcoded from `Pictures/` (to be moved to Sanity in the next pass).
 > **V3 — Groups & Corporate pages:** commit `361d679` — Groups & Events and Corporate Offsites pages added; reopening banner, nav/footer updates.
 > **Cleanup:** commit `371569b` — removed 105 Playwright screenshot files from root (~39 MB), `.playwright-mcp/` session logs folder (~4.7 MB), and unused default Next.js SVGs from `public/` (file, globe, next, vercel, window).
+> **V4 — Dandelion Kitchen:** `/kitchen` page added for the separately listed Dandelion Kitchen Google business. Menu lives in Sanity (`menuSection`); static facts are page constants. Also in this pass: the stale "Reopening September 2026" modal was repurposed as an announcement banner, and the Corporate page's wrong drive times were fixed.
 > **SEO pass:** commits `2254498`–`cee7f11` — Google Analytics 4 (`G-3YSTT1N5GT`) via `@next/third-parties`; Google Search Console verification file in `public/`; `app/sitemap.ts` (8 public pages); `app/robots.ts` (allow all, sitemap pointer); JSON-LD `LodgingBusiness` schema in `<head>`; Open Graph + Twitter Card metadata with OG image (`public/og-image.jpeg`); fixed Groups & Corporate titles to use layout template; curly apostrophe (U+2019) in all "Colonels'" instances in metadata.
 
 ## Tech Stack
@@ -65,6 +67,7 @@ The project root path contains a space (`D Drive/`) which causes Turbopack to mi
 - **Galleries** — photo galleries with a lightbox
 - **Activities & Facilities** — in-house offerings, pulled from Sanity
 - **Around Us** — nearby local attractions, pulled from Sanity
+- **Dandelion Kitchen** (`/kitchen`) — the restaurant's own page, built for drivers on the Bangalore–Goa highway deciding on a 500 m detour, NOT for holiday researchers. Mobile-first and deliberately light — the overwhelming majority of this listing's traffic is mobile and most of it arrives via Maps, and local signal in the area is weak. (Exact traffic figures are in the internal brief, which is deliberately untracked.) The first mobile screen must answer: what food, when, how far, can I just turn up. Menu comes from Sanity; hours, address and directions are page constants. See the "Dandelion Kitchen" section in `resort-content.md` for the confirmed facts — especially the hours rule below.
 - **Contact Us** — the resort's story / ideology + contact details + embedded map
 - **Jobs** — current openings (pulled from Sanity; roles: Manager, Assistant Manager, Chef, Housekeeping, Restaurant Staff, Maintenance Staff) + a Web3Forms application form. Fields ONLY: name, email, phone, role (dropdown of the roles above), and a message box. No file upload — include a line telling applicants to email their CV to Help@theDandelion.in.
 
@@ -82,6 +85,7 @@ The project root path contains a space (`D Drive/`) which causes Turbopack to mi
 - **GalleryImage:** image, caption, category
 - **Attraction (Around Us):** name, description, image, distance, optional mapLink
 - **Job:** title (e.g. Manager, Assistant Manager, Chef, Housekeeping, Restaurant Staff, Maintenance Staff), location, type (full-time / part-time / seasonal), description, isOpen
+- **MenuSection (Dandelion Kitchen menu):** title, order, note (optional), items[] — each item has name, price (optional; empty shows "On request"), isVeg, isSignature. Menu prices are rates: they belong in Sanity, never hard-coded.
 - **SiteContent (singleton):** resort story / ideology, contact details, address, social links
 
 ## Brand & Design
@@ -119,6 +123,21 @@ Use these exact values. Color encodes role — roughly a 60/30/10 split (sage / 
 - SEO: meaningful page titles, meta descriptions, and alt text on every image
 - Define the palette and fonts as Tailwind theme tokens (e.g. `bg-sage`, `text-gold`, `font-heading`) rather than scattering raw hex values
 
+### Dandelion Kitchen hours — do not "fix" this
+Two different things, both correct:
+- **Opening hours: 08:00–21:30, daily, continuous.** The blanket window. Goes on the Google
+  Business Profile and in the `Restaurant` JSON-LD `openingHours` — the two MUST match.
+- **Main serving hours:** breakfast 08:00–10:00, lunch 12:00–15:30, dinner 19:00–21:30.
+  Human-readable page copy ONLY — never structured data.
+
+Between services there is always tea, coffee and snacks. Listing only the three windows would
+make the kitchen read as *closed* at 16:30 and lose highway traffic — the blanket window is a
+deliberate business decision, not an oversight.
+
+The Kitchen also has its **own map pin** (15.425642, 74.542537), distinct from the resort's
+(15.4249617, 74.5419077), because it is a separate Google listing. Same property. Do not
+reconcile them.
+
 ## Design Workflow
 - **Reference site (primary inspiration):** **The Machan**, Lonavala — https://www.themachan.com — a nature-immersive eco-luxury resort. At the start of the build, use Playwright MCP to open it and take screenshots for visual reference. Emulate the *qualities*, not the literal design (don't copy their layout, colors, fonts, or content):
   - Photo-forward, immersive imagery — large, often full-bleed nature photos that carry each section.
@@ -137,7 +156,7 @@ All SEO infrastructure is in place. Do not duplicate or override these in indivi
 
 - **Canonical domain:** `https://www.thedandelion.in` — `metadataBase` in `app/layout.tsx` is set to this.
 - **Title template:** `"%s | The Dandelion – Colonels’ Jungle Resort"` — all pages must export a short `title` string (e.g. `"Accommodation"`) and the suffix is appended automatically. Never set a full standalone title on a page.
-- **Sitemap:** `app/sitemap.ts` — includes 8 public pages (`/`, `/accommodation`, `/activities`, `/around-us`, `/galleries`, `/contact`, `/groups`, `/corporate`). Excludes `/jobs`, `/privacy-policy`, `/terms-and-conditions`.
+- **Sitemap:** `app/sitemap.ts` — includes 9 public pages (`/`, `/accommodation`, `/kitchen`, `/activities`, `/around-us`, `/galleries`, `/contact`, `/groups`, `/corporate`). Excludes `/jobs`, `/privacy-policy`, `/terms-and-conditions`.
 - **Robots:** `app/robots.ts` — allows all crawlers, sitemap at `https://www.thedandelion.in/sitemap.xml`.
 - **Open Graph + Twitter Card:** Defined in root layout metadata. OG image at `public/og-image.jpeg` (1200×630), served from `https://www.thedandelion.in/og-image.jpeg`.
 - **JSON-LD:** `LodgingBusiness` schema injected via `<script type="application/ld+json">` in `<head>` in `app/layout.tsx`.

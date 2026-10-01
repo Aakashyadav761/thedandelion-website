@@ -49,3 +49,15 @@ Thumbs.db
 
 # Claude Code — per-user local settings (API keys, personal prefs)
 .claude/settings.local.json
+
+# typescript incremental build info
+tsconfig.tsbuildinfo
+
+# Internal working documents — NOT for the public repo.
+# These hold pricing strategy, business-plan figures, private analytics and
+# auth/infrastructure notes. The repo is public; keep these local only.
+/TODO.md
+/KITCHEN-PAGE-BRIEF.md
+/GIT-AUTH.md
+/Booking Calendar Dashboard/
+/v3-groups-corporate-prompt(1).md

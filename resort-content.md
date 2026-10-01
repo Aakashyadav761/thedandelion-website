@@ -58,6 +58,60 @@ Build the Rooms page and Sanity so new unit types can be added later without rew
 
 (Note: room rate includes breakfast; other dining and the items above marked chargeable are extra.)
 
+## Dandelion Kitchen — the restaurant (CONFIRMED 1 Oct 2026)
+
+Dandelion Kitchen is the resort's restaurant and, since 29 Sept 2026, a **separately listed
+Google business** (category: Restaurant). It has its own page at `/kitchen`, aimed at drivers
+on the Bangalore–Goa highway rather than at holiday researchers.
+
+**Positioning line (keep this in the copy):** *a garden setting rather than a roadside stop.*
+
+### Hours — two different things, both correct
+- **Opening hours: 08:00–21:30, seven days, continuous.** This is the blanket window. It is
+  what goes on the Google Business Profile and in the `Restaurant` JSON-LD `openingHours`,
+  and the two must match.
+- **Main serving hours** (full kitchen running): breakfast 08:00–10:00, lunch 12:00–15:30,
+  dinner 19:00–21:30. **Page copy only — never structured data.**
+- Between services there is always tea, coffee and snacks. Guests typically call ahead or
+  simply walk in.
+- **Why blanket hours:** listing only the three windows makes the kitchen look *closed* to
+  someone checking at 16:30, losing more highway traffic than the precision gains. Deliberate
+  — do not "correct" it to the three windows.
+
+### Confirmed facts
+- Vegetarian and non-vegetarian, cooked fresh and to order. **À la carte — no price per head.**
+- **No alcohol served.** State plainly; for families it reads as reassurance.
+- Takeaway available (food can be packed). Walk-ins welcome, no booking. Parking on site.
+- Outdoor, open-air setting on the 11 forested acres.
+- **Seating capacity is deliberately NOT published** — stating ~30 would cap enquiries from
+  larger groups.
+
+### Map pin — deliberately different from the resort's
+- Kitchen: **15.425642, 74.542537** (used on `/kitchen`)
+- Resort: 15.4249617, 74.5419077 (used in the Contact page Maps embed)
+Both are inside the same property. They differ because the Kitchen is its own Google listing.
+Not an error — do not reconcile them.
+
+### Menu
+The menu lives in **Sanity** (`menuSection` documents), not in this file and not as page
+constants — it carries ~60 prices, and CLAUDE.md's rule is never to hard-code rates. Edit it
+at `/studio`. Initial data was seeded from the owner's menu PDF by
+`scripts/seed-kitchen-menu.mjs` (re-running that script overwrites Studio edits).
+
+Transcription deviations from the owner's PDF, all agreed 1 Oct 2026:
+- "Ice Bucket (₹135)" **dropped** — sat awkwardly beside "no alcohol served".
+- "Sandwitches" → "Sandwiches" (typo in source).
+- "Onion ring" → "Onion Rings"; "Kuchumbar" → "Kachumber"; "Zeera Aloo" → "Jeera Aloo"
+  (the source menu already spells the rice "Jeera").
+- **Dandelion Chicken Curry (₹575)** flagged `isSignature` — the only house-named dish.
+
+### Still open
+- No food photographs yet. The page deliberately uses **real photos of the setting** plus
+  **botanical line art** — never stock food imagery, which would set an expectation the plate
+  has to meet.
+- Drive time from Dandeli town is unverified and omitted from the directions section.
+- The Google listing has **no phone number on it** — add +91 7764006404.
+
 ## Around Us — Nearby Attractions & Adventure (CONFIRMED)
 The resort sits on the edge of Dandeli forest in the Western Ghats, on the Kali River — a well-known nature-and-adventure region. **The resort assists with booking these free of cost**, except the jungle safari (tickets are bought at the counter on site).
 

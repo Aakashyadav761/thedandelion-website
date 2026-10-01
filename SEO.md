@@ -17,6 +17,12 @@
 - **Title:** Accommodation | The Dandelion – Colonels' Jungle Resort
 - **Description:** Stay in a Cottage or Hut at The Dandelion – Colonels' Jungle Resort. Rustic comfort, warm hospitality, and forest views on the edge of Dandeli, Western Ghats.
 
+### Dandelion Kitchen `/kitchen`
+- **Title:** Dandelion Kitchen | The Dandelion – Colonels' Jungle Resort
+- **Description:** Dandelion Kitchen — vegetarian and non-vegetarian meals cooked fresh to order, in a garden setting 500 m off the Bangalore–Goa highway near Ramnagar. Open 8 am to 9.30 pm daily. Walk-ins welcome.
+- **Structured data:** `Restaurant` JSON-LD (own `geo` pin, `openingHours` 08:00–21:30, `servesAlcohol: false`, resort as `parentOrganization`).
+- **Targets:** food near the Bangalore–Goa highway, restaurants near Dandeli, places to eat near Ramnagar.
+
 ### Activities & Facilities `/activities`
 - **Title:** Activities & Facilities | The Dandelion – Colonels' Jungle Resort
 - **Description:** Swimming pool, Jacuzzi, guided jungle walks, birdwatching, barbeque evenings, and Dandelion Kitchen — everything on offer at The Dandelion – Colonels' Jungle Resort.
