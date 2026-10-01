@@ -4,6 +4,7 @@ import { sanityClient } from "@/lib/sanity";
 
 const quickLinks = [
   { href: "/accommodation", label: "Accommodation" },
+  { href: "/kitchen", label: "Dandelion Kitchen" },
   { href: "/corporate", label: "Corporate Offsites" },
   { href: "/groups", label: "Groups & Events" },
   { href: "/galleries", label: "Galleries" },

@@ -78,3 +78,20 @@ export interface SiteContent {
   email?: string;
   instagramUrl?: string;
 }
+
+export interface MenuItem {
+  _key: string;
+  name: string;
+  price?: number;
+  isVeg?: boolean;
+  isSignature?: boolean;
+}
+
+export interface MenuSection {
+  _id: string;
+  _type: "menuSection";
+  title: string;
+  order: number;
+  note?: string;
+  items: MenuItem[];
+}

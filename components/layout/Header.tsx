@@ -5,6 +5,7 @@ import MobileMenu from "./MobileMenu";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/accommodation", label: "Accommodation" },
+  { href: "/kitchen", label: "Kitchen" },
   { href: "/corporate", label: "Corporate" },
   { href: "/groups", label: "Groups & Events" },
   { href: "/galleries", label: "Galleries" },

@@ -7,6 +7,7 @@ import { galleryImageSchema } from "./galleryImage";
 import { attractionSchema } from "./attraction";
 import { jobSchema } from "./job";
 import { siteContentSchema } from "./siteContent";
+import { menuSectionSchema } from "./menuSection";
 
 export const schemaTypes = [
   roomSchema,
@@ -15,4 +16,5 @@ export const schemaTypes = [
   attractionSchema,
   jobSchema,
   siteContentSchema,
+  menuSectionSchema,
 ];
